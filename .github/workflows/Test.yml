@@ -34,9 +34,10 @@ jobs:
 
       - name: Print sccache log
         if: ${{always()}}
+        shell: cmd
         run: |
           cat sccache_log.txt
-          echo SCCACHE_DIR = %SCCACHE_DIR%
+          echo SCCACHE_DIR='%SCCACHE_DIR%'
 
       - name: Upload sccache log
         if: ${{always()}}
