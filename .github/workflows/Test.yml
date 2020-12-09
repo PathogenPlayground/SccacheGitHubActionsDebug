@@ -1,0 +1,32 @@
+name: Test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+env:
+      DOTNET_NOLOGO: true
+      DOTNET_CLI_TELEMETRY_OPTOUT: true
+      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+      SCCACHE_LOG: 'debug'
+jobs:
+  test:
+    name: Test
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install sccache
+        id: sccache
+        run: python .github/workflows/install-sccache.py
+
+      - name: Start sccache server
+        run: sccache --start-server
+
+      - name: Show sccache statistics
+        run: sccache --show-stats
