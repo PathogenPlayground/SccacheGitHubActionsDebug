@@ -36,6 +36,7 @@ name_in_tar = f"{download_file_name}/{binary_name}"
 # The binary is placed in a subdirectory of its download hash to ensure we don't re-use an old version.
 sccache_root = os.path.join(os.getcwd(), "build-sccache")
 sccache_cache_directory = os.path.join(sccache_root, "cache")
+os.makedirs(sccache_cache_directory, exist_ok=True)
 
 sccache_directory = os.path.join(sccache_root, expected_hash)
 sccache_binary_location = os.path.join(sccache_directory, binary_name)
